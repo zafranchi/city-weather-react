@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/city-weather-react/static/css/main.49c60acf.chunk.css",
+    "main.css": "/city-weather-react/static/css/main.2a376cef.chunk.css",
     "main.js": "/city-weather-react/static/js/main.dea11576.chunk.js",
     "main.js.map": "/city-weather-react/static/js/main.dea11576.chunk.js.map",
     "runtime-main.js": "/city-weather-react/static/js/runtime-main.534237b4.js",
@@ -8,15 +8,15 @@
     "static/js/2.c6caf302.chunk.js": "/city-weather-react/static/js/2.c6caf302.chunk.js",
     "static/js/2.c6caf302.chunk.js.map": "/city-weather-react/static/js/2.c6caf302.chunk.js.map",
     "index.html": "/city-weather-react/index.html",
-    "precache-manifest.0d94b237dbd9e71a7af20d22b6c07ec0.js": "/city-weather-react/precache-manifest.0d94b237dbd9e71a7af20d22b6c07ec0.js",
+    "precache-manifest.cfca75a07531184fd9ffd1e1617fbae6.js": "/city-weather-react/precache-manifest.cfca75a07531184fd9ffd1e1617fbae6.js",
     "service-worker.js": "/city-weather-react/service-worker.js",
-    "static/css/main.49c60acf.chunk.css.map": "/city-weather-react/static/css/main.49c60acf.chunk.css.map",
+    "static/css/main.2a376cef.chunk.css.map": "/city-weather-react/static/css/main.2a376cef.chunk.css.map",
     "static/media/logo.svg": "/city-weather-react/static/media/logo.25bf045c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.534237b4.js",
     "static/js/2.c6caf302.chunk.js",
-    "static/css/main.49c60acf.chunk.css",
+    "static/css/main.2a376cef.chunk.css",
     "static/js/main.dea11576.chunk.js"
   ]
 }
