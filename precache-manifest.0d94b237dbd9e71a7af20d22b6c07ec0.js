@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "476fc513d87251779d91505700157459",
+    "revision": "32bead900727befdfd89487c6a384ccd",
     "url": "/city-weather-react/index.html"
   },
   {
-    "revision": "74fd4ecb9a3067e8ba17",
-    "url": "/city-weather-react/static/css/main.5df64f12.chunk.css"
+    "revision": "da386e0ba15bca5eaad7",
+    "url": "/city-weather-react/static/css/main.49c60acf.chunk.css"
   },
   {
-    "revision": "606946e5c29266b3ed7c",
-    "url": "/city-weather-react/static/js/2.e4811ccb.chunk.js"
+    "revision": "069c5becdff5064bb724",
+    "url": "/city-weather-react/static/js/2.c6caf302.chunk.js"
   },
   {
-    "revision": "74fd4ecb9a3067e8ba17",
-    "url": "/city-weather-react/static/js/main.393c8a31.chunk.js"
+    "revision": "da386e0ba15bca5eaad7",
+    "url": "/city-weather-react/static/js/main.dea11576.chunk.js"
   },
   {
     "revision": "877309fa2879b4e8779c",
