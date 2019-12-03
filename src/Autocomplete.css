@@ -28,7 +28,7 @@
   border: 0;
   background-repeat: no-repeat;
   background-size: 100%;
-  background-image: url('/search_btn.png');
+  background-image: url(./search_btn.png);
 }
 .search-btn:hover {
   outline: none;
