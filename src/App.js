@@ -9,13 +9,24 @@ function App() {
     <div className="App">
       <Autocomplete
         options={[
-          'Papaya',
-          'Persimmon',
-          'Paw Paw',
-          'Prickly Pear',
-          'Peach',
-          'Pomegranate',
-          'Pineapple'
+          'Toronto',
+          'Montréal',
+          'Vancouver',
+          'Ottawa',
+          'Calgary',
+          'Edmonton',
+          'Hamilton',
+          'Winnipeg',
+          'Québec',
+          'Oshawa',
+          'Kitchener',
+          'Halifax',
+          'London',
+          'Windsor',
+          'Victoria',
+          'Saskatoon',
+          'Barrie',
+          'Regina'
         ]}
       />
     </div>
