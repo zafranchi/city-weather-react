@@ -32,7 +32,7 @@ export class Weather extends Component {
 
     let iconUrl;
     if (icon != '') {
-      iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";;
+      iconUrl = "https://openweathermap.org/img/w/" + icon + ".png";;
     } else {
       iconUrl = '';
     }

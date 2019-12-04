@@ -130,7 +130,7 @@ export class Autocomplete extends Component {
       userInput
     } = this.state;
 
-    fetch('http://api.openweathermap.org/data/2.5/weather?q=' + userInput + ',ca&APPID=1eb0b87458ee60378c9b2bba190c0dc4')
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + ',ca&APPID=1eb0b87458ee60378c9b2bba190c0dc4')
       .then(res => res.json())
       .then((data) => {
         this.setState({
