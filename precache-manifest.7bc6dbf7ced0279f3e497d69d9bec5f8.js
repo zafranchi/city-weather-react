@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "72232d4e90eb6cc8c99c7853bf66f7fc",
+    "revision": "935f6334f1f5f06e7f477006b86a8fc8",
     "url": "/city-weather-react/index.html"
   },
   {
-    "revision": "503c7b3d367b890e9960",
+    "revision": "117c4f6bb8be05e027fa",
     "url": "/city-weather-react/static/css/main.9915c6c3.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/city-weather-react/static/js/2.a432810c.chunk.js"
   },
   {
-    "revision": "503c7b3d367b890e9960",
-    "url": "/city-weather-react/static/js/main.bc7ba280.chunk.js"
+    "revision": "117c4f6bb8be05e027fa",
+    "url": "/city-weather-react/static/js/main.61814efb.chunk.js"
   },
   {
     "revision": "877309fa2879b4e8779c",
