@@ -1,0 +1,60 @@
+
+.details{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 60px;
+  margin-right: 60px;
+  background-color: #abc;
+  padding-bottom: 30px;
+  border-radius: 25px;
+}
+
+.temperature {
+  color: white;
+  font-weight: 300;
+  font-size: 10em;
+}
+
+.summary {
+  font-size: 2em;
+  font-weight: 300;
+  width: 260px;
+  margin-top: -16px;
+  padding-bottom: 16px;
+  margin-left: 8px;
+}
+.summaryText {
+  margin: 0;
+  margin-left: 56px;
+}
+.humidity, .pressure, .tempMin, .tempMax{
+  font-size: 1.6em;
+  font-weight: 300;
+  margin-left: 8px;
+}
+.humidity {
+  margin-top: 16px;
+}
+.pressure {
+  margin-top: 4px;
+}
+
+.tempMin {
+  margin-top: 4px;
+}
+
+.tempMax {
+  margin-top: 4px;
+}
+
+.not-visible {
+  display: none;
+}
+
+.icon {
+  position: relative;
+  top: 5px;
+  left: 5px;
+}

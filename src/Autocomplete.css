@@ -1,4 +1,20 @@
 
+body {
+  background: #CEF;
+}
+
+.search-container {
+  float: left;
+  margin: 5px;
+  width: 50%;
+}
+
+.weather-container {
+  float: right;
+  margin: 5px;
+  width: 40%;
+}
+
 .search {
   width: 30rem;
   margin: 50px auto 10px auto;
@@ -15,15 +31,20 @@
   -webkit-transition: width 0.3s;
 }
 
-.search-btn {
-  height: 100%;
-  width: 4em;
-  margin-top: -2em;
-  position: absolute;
-  top: 50%;
-  right: 0.5rem;
+.hint {
+  width: 100%;
+  text-align: left;
+}
 
-  opacity: 0.2;
+.search-btn {
+  height: 50%;
+  width: 4em;
+  margin-top: -1em;
+  position: absolute;
+  top: 65%;
+  right: 0.4rem;
+
+  opacity: 0.5;
   background-color: transparent;
   border: 0;
   background-repeat: no-repeat;

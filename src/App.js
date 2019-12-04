@@ -10,7 +10,7 @@ function App() {
       <Autocomplete
         options={[
           'Toronto',
-          'Montréal',
+          'Montreal',
           'Vancouver',
           'Ottawa',
           'Calgary',
