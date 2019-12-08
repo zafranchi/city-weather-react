@@ -3,6 +3,7 @@ import './Autocomplete.css';
 import Weather from './Weather';
 import AutocompleteItems from './AutocompleteItems';
 import cityNamesData from './ca_cities.json';
+import { properties } from './properties.js';
 
 
 function Autocomplete() {
@@ -100,8 +101,9 @@ function Autocomplete() {
   const getWeatherInfo = (event) => {
 
     let kelvinSource = 273.15;
+    let url = properties.api_call_url.replace("[userInput]", userInput);
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + ',ca&APPID=1eb0b87458ee60378c9b2bba190c0dc4')
+    fetch(url)
       .then(res => res.json())
       .then((data) => {
         if(data.main !== undefined) {

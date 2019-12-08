@@ -1,5 +1,6 @@
 import React from 'react';
 import './Weather.css';
+import { properties } from './properties.js';
 
 function Weather(props) {
 
@@ -10,7 +11,7 @@ function Weather(props) {
 
   let iconUrl;
   if (props.icon !== '') {
-    iconUrl = "https://openweathermap.org/img/w/" + props.icon + ".png";;
+    iconUrl = properties.api_image_url.replace("[icon]", props.icon);
   } else {
     iconUrl = '';
   }
