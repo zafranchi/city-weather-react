@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Autocomplete.css';
 import Weather from './Weather';
 import cityNamesData from './ca_cities.json';
 
 
-export class Autocomplete extends Component {
+function Autocomplete() {
 
-  state = {
-    options: [],
-    activeOption: 0,
-    filteredOptions: [],
-    showOptions: false,
-    userInput: '',
-    weatherVisibility: 0,
-    weather: {
+  const [options, setOptions] = useState([]);
+  const [activeOption, setActiveOption] = useState(0);
+  const [filteredOptions, setFilteredOptions] = useState([]);
+  const [showOptions, setShowOptions] = useState(false);
+  const [userInput, setUserInput] = useState('');
+  const [weatherVisibility, setWeatherVisibility] = useState(0);
+  const [weather, setWeather] = useState(
+    {
       icon: '',
       temp: '',
       pressure: '',
@@ -21,209 +21,172 @@ export class Autocomplete extends Component {
       tempMin: '',
       tempMax: ''
     }
-  };
+  );
 
   /**
     Reading city names from a local json file
   **/
-  componentDidMount() {
-    var loadedData = JSON.parse(JSON.stringify(cityNamesData));
-    var cityNames = [];
+  useEffect(() => {
+    let loadedData = JSON.parse(JSON.stringify(cityNamesData));
+    let cityNames = [];
     loadedData.map((item, key) =>
       cityNames.push(item.city)
     );
-    this.setState({
-      options : cityNames
-    });
-  }
+    setOptions(cityNames);
+
+  } , []);
 
   /**
     When the user enters value, the filtered options should be updated
   **/
-  onChange = (e) => {
+  const handleChange = (event) => {
 
-    const { options } = this.state;
-    const userInput = e.currentTarget.value;
-
-    const filteredOptions = options.filter(
+    let userInputValue = event.target.value;
+    let filteredOptionValues = options.filter(
       (optionName) =>
-        optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        optionName.toLowerCase().indexOf(userInputValue.toLowerCase()) > -1
     );
 
-    this.setState({
-      activeOption: 0,
-      filteredOptions,
-      showOptions: true,
-      userInput: e.currentTarget.value,
-      weatherVisibility: 0
-    });
+    setActiveOption(0);
+    setFilteredOptions(filteredOptionValues);
+    setShowOptions(true);
+    setUserInput(event.target.value);
+    setWeatherVisibility(0);
   };
 
   /**
     When the user clicks on an option, the filtered options should not be displayed
   **/
-  onClick = (e) => {
-    this.setState({
-      activeOption: 0,
-      filteredOptions: [],
-      showOptions: false,
-      userInput: e.currentTarget.innerText,
-      weatherVisibility: 0
-    });
+  const handleClick = (event) => {
+    setActiveOption(0);
+    setFilteredOptions([]);
+    setShowOptions(false);
+    setUserInput(event.target.innerText);
+    setWeatherVisibility(0);
   };
 
   /**
     When the user travers the list by the keyboard, the selected option should be changed
   **/
-  onKeyDown = (e) => {
-    const { activeOption, filteredOptions } = this.state;
+  const handleKeyDown = (event) => {
 
-    if (e.keyCode === 13) { //enter key
-      this.setState({
-        activeOption: 0,
-        showOptions: false,
-        userInput: filteredOptions[activeOption]
-      });
+    if (event.keyCode === 13) { //enter key
+      setActiveOption(0);
+      setShowOptions(false);
+      setUserInput(filteredOptions[activeOption]);
 
-    } else if (e.keyCode === 38) { // up arrow
+    } else if (event.keyCode === 38) { // up arrow
       if (activeOption === 0) {
         return;
       }
-      this.setState({
-        activeOption: activeOption - 1
-      });
+      setActiveOption(activeOption - 1);
 
-    } else if (e.keyCode === 40) { // down arrow
+    } else if (event.keyCode === 40) { // down arrow
       if (activeOption === filteredOptions.length - 1) {
         console.log(activeOption);
         return;
       }
-      this.setState({
-        activeOption: activeOption + 1
-      });
+      setActiveOption(activeOption + 1);
     }
 
-    this.setState({
-      weatherVisibility: 0
-    });
+    setWeatherVisibility(0);
+
   };
 
   /**
     Getting weather information by calling Open Weather API
   **/
-  getWeatherInfo = (e) => {
-    const {
-      weather,
-      userInput
-    } = this.state;
+  const getWeatherInfo = (event) => {
 
-    var kelvinSource = 273.15;
+    let kelvinSource = 273.15;
 
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + ',ca&APPID=1eb0b87458ee60378c9b2bba190c0dc4')
       .then(res => res.json())
       .then((data) => {
-        this.setState({
-          weatherVisibility: 1,
-          weather: {
+        if(data.main !== undefined) {
+          setWeatherVisibility(1);
+          setWeather({
             temp: Math.round((data.main.temp - kelvinSource)),
             tempMin: Math.round((data.main.temp_min - kelvinSource)),
             tempMax: Math.round((data.main.temp_max - kelvinSource)),
             humidity: (data.main.humidity),
             pressure: (data.main.pressure),
             icon: (data.weather[0].icon)
-          }
-        })
+          });
+        }
       })
       .catch(console.log);
   };
 
-
-  render() {
-    const {
-      onChange,
-      onClick,
-      onKeyDown,
-      getWeatherInfo,
-
-      state: {
-        activeOption,
-        filteredOptions,
-        showOptions,
-        userInput,
-        weatherVisibility,
-        weather
-      }
-    } = this;
-
-    let optionList;
-    if (showOptions && userInput) {
-      if (filteredOptions.length) {
-        optionList = (
-          <ul className="options">
-            {filteredOptions.map((optionName, index) => {
-              let className;
-              if (index === activeOption) {
-                className = 'option-active';
-              }
-              return (
-                <li className={className} key={optionName} onClick={onClick}>
-                  {optionName}
-                </li>
-              );
-            })}
-          </ul>
-        );
-      } else {
-        optionList = (
-          <div className="no-options">
-            <em>No Option!</em>
-          </div>
-        );
-      }
+  let optionList;
+  if (showOptions && userInput) {
+    if (filteredOptions.length) {
+      optionList = (
+        <ul className="options">
+          {filteredOptions.map((optionName, index) => {
+            let className;
+            if (index === activeOption) {
+              className = 'option-active';
+            }
+            return (
+              <li className={className} key={optionName} onClick={handleClick}>
+                {optionName}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    } else {
+      optionList = (
+        <div className="no-options">
+          <em>No Option!</em>
+        </div>
+      );
     }
-
-    return (
-      <React.Fragment>
-        <div className="search-container">
-          <div className="search">
-            <div className="hint">
-              <p>
-                Choose the city and click
-                on the search button to see its weather:
-              </p>
-            </div>
-            <input
-              type="text"
-              className="search-box"
-              onChange={onChange}
-              onKeyDown={onKeyDown}
-              value={userInput}
-            />
-            <input
-              type="submit"
-              value=""
-              className="search-btn"
-              onClick={getWeatherInfo}
-             />
-          </div>
-          {optionList}
-        </div>
-
-        <div className="weather-container">
-          <Weather
-            icon={ weather.icon }
-            temp={ weather.temp }
-            pressure={ weather.pressure }
-            humidity={ weather.humidity }
-            tempMin={ weather.tempMin}
-            tempMax={ weather.tempMax }
-            visible={ weatherVisibility }
-            city={ userInput }
-          />
-        </div>
-      </React.Fragment>
-    );
   }
+
+  return (
+    <div>
+      <div className="search-container">
+        <div className="search">
+          <div className="hint">
+            <p>
+              Choose the city and click
+              on the search button to see its weather:
+            </p>
+          </div>
+          <input
+            type="text"
+            className="search-box"
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            value={userInput}
+          />
+          <input
+            type="submit"
+            value=""
+            className="search-btn"
+            onClick={getWeatherInfo}
+           />
+        </div>
+        {optionList}
+      </div>
+
+      <div className="weather-container">
+        <Weather
+          icon={ weather.icon }
+          temp={ weather.temp }
+          pressure={ weather.pressure }
+          humidity={ weather.humidity }
+          tempMin={ weather.tempMin}
+          tempMax={ weather.tempMax }
+          visible={ weatherVisibility }
+          city={ userInput }
+        />
+      </div>
+    </div>
+  );
+
 }
 
 export default Autocomplete;
