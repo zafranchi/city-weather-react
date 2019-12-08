@@ -13,21 +13,13 @@ export class Weather extends Component {
       humidity,
       tempMin,
       tempMax,
-      city
+      city,
+      visible
     } = this.props;
 
-    let cityName;
-    if (city != '') {
-      cityName = city;
-    } else {
-      cityName = '';
-    }
-
-    let visibility;
-    if (temp == '0' || temp != '') {
-      visibility = '';
-    } else {
-      visibility = 'not-visible';
+    let detailsClassNames = 'details ';
+    if (visible == 0) {
+      detailsClassNames = detailsClassNames + 'not-visible';
     }
 
     let iconUrl;
@@ -36,9 +28,7 @@ export class Weather extends Component {
     } else {
       iconUrl = '';
     }
-
-    let detailsClassNames = 'details ' + visibility;
-
+    
     return (
       <React.Fragment>
         <div className="weather-info">
@@ -46,7 +36,7 @@ export class Weather extends Component {
             <div className="temperature">{ temp }°</div>
             <div className="summary">
               <img className="wicon" src={ iconUrl } alt="Weather icon" />
-              { cityName }
+              { city }
             </div>
             <div className="humidity">humidity: { humidity }%</div>
             <div className="pressure">pressure: { pressure }hPa</div>

@@ -1,33 +1,48 @@
 import React, { Component } from 'react';
 import './Autocomplete.css';
 import Weather from './Weather';
-import PropTypes from 'prop-types';
+import cityNamesData from './ca_cities.json';
+
 
 export class Autocomplete extends Component {
 
-  static propTypes = {
-    options: PropTypes.instanceOf(Array).isRequired,
-  };
-
   state = {
+    options: [],
     activeOption: 0,
     filteredOptions: [],
     showOptions: false,
     userInput: '',
+    weatherVisibility: 0,
     weather: {
       icon: '',
       temp: '',
       pressure: '',
       humidity: '',
       tempMin: '',
-      tempMax: '',
-      city: ''
+      tempMax: ''
     }
   };
 
+  /**
+    Reading city names from a local json file
+  **/
+  componentDidMount() {
+    var loadedData = JSON.parse(JSON.stringify(cityNamesData));
+    var cityNames = [];
+    loadedData.map((item, key) =>
+      cityNames.push(item.city)
+    );
+    this.setState({
+      options : cityNames
+    });
+  }
+
+  /**
+    When the user enters value, the filtered options should be updated
+  **/
   onChange = (e) => {
 
-    const { options } = this.props;
+    const { options } = this.state;
     const userInput = e.currentTarget.value;
 
     const filteredOptions = options.filter(
@@ -40,36 +55,26 @@ export class Autocomplete extends Component {
       filteredOptions,
       showOptions: true,
       userInput: e.currentTarget.value,
-      weather: {
-        temp: '',
-        tempMin: '',
-        tempMax: '',
-        humidity: '',
-        pressure: '',
-        icon: '',
-        city: ''
-      }
+      weatherVisibility: 0
     });
   };
 
+  /**
+    When the user clicks on an option, the filtered options should not be displayed
+  **/
   onClick = (e) => {
     this.setState({
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
       userInput: e.currentTarget.innerText,
-      weather: {
-        temp: '',
-        tempMin: '',
-        tempMax: '',
-        humidity: '',
-        pressure: '',
-        icon: '',
-        city: ''
-      }
+      weatherVisibility: 0
     });
   };
 
+  /**
+    When the user travers the list by the keyboard, the selected option should be changed
+  **/
   onKeyDown = (e) => {
     const { activeOption, filteredOptions } = this.state;
 
@@ -77,76 +82,61 @@ export class Autocomplete extends Component {
       this.setState({
         activeOption: 0,
         showOptions: false,
-        userInput: filteredOptions[activeOption],
-        weather: {
-          temp: '',
-          tempMin: '',
-          tempMax: '',
-          humidity: '',
-          pressure: '',
-          icon: '',
-          city: ''
-        }
+        userInput: filteredOptions[activeOption]
       });
+
     } else if (e.keyCode === 38) { // up arrow
       if (activeOption === 0) {
         return;
       }
       this.setState({
-        activeOption: activeOption - 1,
-        weather: {
-          temp: '',
-          tempMin: '',
-          tempMax: '',
-          humidity: '',
-          pressure: '',
-          icon: '',
-          city: ''
-        }
+        activeOption: activeOption - 1
       });
+
     } else if (e.keyCode === 40) { // down arrow
       if (activeOption === filteredOptions.length - 1) {
         console.log(activeOption);
         return;
       }
       this.setState({
-        activeOption: activeOption + 1,
-        weather: {
-          temp: '',
-          tempMin: '',
-          tempMax: '',
-          humidity: '',
-          pressure: '',
-          icon: '',
-          city: ''
-        }
+        activeOption: activeOption + 1
       });
     }
+
+    this.setState({
+      weatherVisibility: 0
+    });
   };
 
+  /**
+    Getting weather information by calling Open Weather API
+  **/
   getWeatherInfo = (e) => {
     const {
       weather,
       userInput
     } = this.state;
 
+    var kelvinSource = 273.15;
+
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + ',ca&APPID=1eb0b87458ee60378c9b2bba190c0dc4')
       .then(res => res.json())
       .then((data) => {
         this.setState({
+          weatherVisibility: 1,
           weather: {
-            temp: Math.round((data.main.temp - 273.15)),
-            tempMin: Math.round((data.main.temp_min - 273.15)),
-            tempMax: Math.round((data.main.temp_max - 273.15)),
+            temp: Math.round((data.main.temp - kelvinSource)),
+            tempMin: Math.round((data.main.temp_min - kelvinSource)),
+            tempMax: Math.round((data.main.temp_max - kelvinSource)),
             humidity: (data.main.humidity),
             pressure: (data.main.pressure),
-            icon: (data.weather[0].icon),
-            city: userInput
+            icon: (data.weather[0].icon)
           }
         })
       })
       .catch(console.log);
   };
+
 
   render() {
     const {
@@ -160,6 +150,7 @@ export class Autocomplete extends Component {
         filteredOptions,
         showOptions,
         userInput,
+        weatherVisibility,
         weather
       }
     } = this;
@@ -197,9 +188,7 @@ export class Autocomplete extends Component {
           <div className="search">
             <div className="hint">
               <p>
-                Please choose the city and click
-              </p>
-              <p>
+                Choose the city and click
                 on the search button to see its weather:
               </p>
             </div>
@@ -228,6 +217,7 @@ export class Autocomplete extends Component {
             humidity={ weather.humidity }
             tempMin={ weather.tempMin}
             tempMax={ weather.tempMax }
+            visible={ weatherVisibility }
             city={ userInput }
           />
         </div>

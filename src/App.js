@@ -7,28 +7,7 @@ import Autocomplete from './Autocomplete'
 function App() {
   return (
     <div className="App">
-      <Autocomplete
-        options={[
-          'Toronto',
-          'Montreal',
-          'Vancouver',
-          'Ottawa',
-          'Calgary',
-          'Edmonton',
-          'Hamilton',
-          'Winnipeg',
-          'Québec',
-          'Oshawa',
-          'Kitchener',
-          'Halifax',
-          'London',
-          'Windsor',
-          'Victoria',
-          'Saskatoon',
-          'Barrie',
-          'Regina'
-        ]}
-      />
+      <Autocomplete />
     </div>
   );
 }
