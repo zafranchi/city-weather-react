@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Autocomplete.css';
 import Weather from './Weather';
+import AutocompleteItems from './AutocompleteItems';
 import cityNamesData from './ca_cities.json';
 
 
@@ -118,33 +119,6 @@ function Autocomplete() {
       .catch(console.log);
   };
 
-  let optionList;
-  if (showOptions && userInput) {
-    if (filteredOptions.length) {
-      optionList = (
-        <ul className="options">
-          {filteredOptions.map((optionName, index) => {
-            let className;
-            if (index === activeOption) {
-              className = 'option-active';
-            }
-            return (
-              <li className={className} key={optionName} onClick={handleClick}>
-                {optionName}
-              </li>
-            );
-          })}
-        </ul>
-      );
-    } else {
-      optionList = (
-        <div className="no-options">
-          <em>No Option!</em>
-        </div>
-      );
-    }
-  }
-
   return (
     <div>
       <div className="search-container">
@@ -169,19 +143,25 @@ function Autocomplete() {
             onClick={getWeatherInfo}
            />
         </div>
-        {optionList}
+        <AutocompleteItems
+          showOptions={showOptions}
+          filteredOptions={filteredOptions}
+          activeOption={activeOption}
+          userInput={userInput}
+          handleClick={handleClick}
+        />
       </div>
 
       <div className="weather-container">
         <Weather
-          icon={ weather.icon }
-          temp={ weather.temp }
-          pressure={ weather.pressure }
-          humidity={ weather.humidity }
-          tempMin={ weather.tempMin}
-          tempMax={ weather.tempMax }
-          visible={ weatherVisibility }
-          city={ userInput }
+          icon={weather.icon}
+          temp={weather.temp}
+          pressure={weather.pressure}
+          humidity={weather.humidity}
+          tempMin={weather.tempMin}
+          tempMax={weather.tempMax}
+          visible={weatherVisibility}
+          city={userInput}
         />
       </div>
     </div>
