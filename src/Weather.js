@@ -21,7 +21,7 @@ function Weather(props) {
       <div className={ detailsClassNames }>
         <div className="temperature">{ props.temp }°</div>
         <div className="summary">
-          <img className="wicon" src={ iconUrl } alt="Weather icon" />
+          <img className="icon" src={ iconUrl } alt="Weather icon" />
           { props.city }
         </div>
         <div className="humidity">humidity: { props.humidity }%</div>

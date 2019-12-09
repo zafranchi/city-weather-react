@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Autocomplete from './Autocomplete';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 it('renders without crashing', () => {
 
